@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Box } from '../box/box';
 
@@ -68,7 +68,7 @@ class Board extends Component {
         }
 
         return (
-            <Fragment>
+            <>
                 {/* Link to scoreboard */}
                 <Link to="/" className="board-link">Go back to scoreboard</Link>
 
@@ -120,9 +120,7 @@ class Board extends Component {
                         <button className="btn" onClick={this.onRestart}>Start new game</button>
                     </div>}
                 </div>
-
-                
-            </Fragment>
+            </>
         )
     }
 }
