@@ -1,0 +1,37 @@
+.board-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+  
+.board {
+    width: 250px;
+}
+
+.board-row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.board-heading {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font: 700 18px / 1.618 sans-serif;
+    list-style-type: none;
+}
+
+.board-history-container {
+    margin-left: 18px;
+}
+
+.board-history {
+    padding: 0;
+    list-style-type: none;
+}
+
+.board-footer {
+    display: block;
+}
