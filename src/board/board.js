@@ -70,7 +70,7 @@ class Board extends Component {
         return (
             <>
                 {/* Link to scoreboard */}
-                <Link to="/" className="board-link">Go back to scoreboard</Link>
+                {/* <Link to="/" className="board-link">Go back to scoreboard</Link> */}
 
                 {/* The game board */}
                 <div className="board-wrapper">

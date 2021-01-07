@@ -7,10 +7,7 @@ class Game extends Component {
     render() {
         return (
             <div className="app">
-                <BrowserRouter>
-                    <Route exact path="/" component={Scoreboard}/>
-                    <Route path="/board" component={Board}/> 
-                </BrowserRouter>
+                <Board/>
             </div>
         );
     }
