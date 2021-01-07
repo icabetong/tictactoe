@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { Storage } from '../storage/storage';
 import { Box } from '../box/box';
 
 import './board.css';
@@ -14,6 +15,8 @@ class Board extends Component {
             xIsNext: true,
         }
     }
+
+    storage = new Storage();
 
     onBoxClick = index => {
         const boxes = this.state.boxes.slice();
@@ -45,32 +48,28 @@ class Board extends Component {
     }
 
     render() {
-        // Get winner (if there is any)
-    const winner = findWinner(this.state.boxes)
-
-        // Are all boxes checked?
-    const isFilled = areAllBoxesClicked(this.state.boxes)
+        const winner = findWinner(this.state.boxes);
+        const isGameDone = areAllBoxesClicked(this.state.boxes);
 
         // Status message
-    let status
-
+        let status
         if (winner) {
-            // If winner exists, create status message
-            status = `The winner is: ${winner}!`
+            // winner exists, create message
+            status = `The winner is: ${winner}!`;
+            this.storage.update([`${winner} won`])
+        } else if (!winner && isGameDone) {
+            // game is drawn, craeate message
+            status = 'Game drawn!';
 
-        } else if(!winner && isFilled) {
-            // If game is drawn, create status message
-            status = 'Game drawn!'
-
+            this.storage.update([`Game drawn`])
         } else {
-            // If there is no winner and game is not drawn, ask the next player to make a move
-            status = `It is ${(this.state.xIsNext ? 'x' : 'o')}'s turn.`
+            status = `It is ${(this.state.xIsNext ? 'x' : 'o')}'s turn.`;
         }
 
         return (
-            <>
+            <Fragment>
                 {/* Link to scoreboard */}
-                {/* <Link to="/" className="board-link">Go back to scoreboard</Link> */}
+                <Link to="/" className="board-link">Go back to Scoreboard</Link>
 
                 {/* The game board */}
                 <div className="board-wrapper">
@@ -116,11 +115,11 @@ class Board extends Component {
                     </div>
                     
                     {/* Button to start new game */}
-                    {winner && <div className="board-footer">
+                    {(isGameDone || winner) && <div className="board-footer">
                         <button className="btn" onClick={this.onRestart}>Start new game</button>
                     </div>}
                 </div>
-            </>
+            </Fragment>
         )
     }
 }
@@ -144,7 +143,6 @@ function findWinner(boxes) {
             return boxes[a];
         }
     }
-
     return null;
 }
 
@@ -156,7 +154,6 @@ function areAllBoxesClicked(boxes) {
             count++;
         }
     })
-
     return count === 9;
 }
 
